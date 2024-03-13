@@ -4,8 +4,12 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
-      // Put any ts-jest specific configuration here
+      // ts-jest specific configuration here
     }],
   },
-  // Remove the ts-jest config from globals if you have it there
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/" // Ignore compiled files in dist directory
+  ],
+  // Additional configuration options as needed
 };
