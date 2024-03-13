@@ -14,7 +14,7 @@ Before you begin, ensure you have the following installed:
 
 Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/chess-repertoire-checker.git
+   git clone https://github.com/aadjones/chess-repertoire-checker.git
    ```
 
 Navigate to the project directory:
