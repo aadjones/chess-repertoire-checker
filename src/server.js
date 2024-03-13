@@ -15,12 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const PORT = 3000;
+// Middleware to parse JSON bodies
 app.use(express_1.default.json());
+// Define a route for the root URL path
+app.get('/', (req, res) => {
+    res.send('Welcome to the Chess Repertoire Checker!');
+});
+// Add other routes here
+// Example: Analyze route
 app.post('/analyze', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, studyLinks } = req.body;
-    // Placeholder for now
-    res.json({ message: "Analysis will be implemented here." });
+    // Your analysis logic here
+    res.json({ message: "This is where analysis results will be returned." });
 }));
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
