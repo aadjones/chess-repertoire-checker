@@ -12,17 +12,17 @@ Before you begin, ensure you have the following installed:
 
 ### Installation
 
-- Clone the repository:
+Clone the repository:
    ```bash
    git clone https://github.com/yourusername/chess-repertoire-checker.git
    ```
 
-- Navigate to the project directory:
+Navigate to the project directory:
 ```bash
 cd chess-repertoire-checker
 ```
 
-- Install the required dependencies:
+Install the required dependencies:
 ```bash
 npm install
 ```
