@@ -114,6 +114,7 @@
     "node_modules",
     "tests",
     "**/*.spec.ts",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "src/__mocks__"
   ]
 }
