@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 export interface Player {
   user: {
@@ -9,20 +8,20 @@ export interface Player {
   // Add more player-specific fields here
 }
 
-export interface Game {
-    id: string;
-    rated: boolean;
-    variant: string;
-    speed: string;
-    perf: string;
-    createdAt: number;
-    lastMoveAt: number;
-    status: string;
+export class Game {
+    id: string = '';
+    rated: boolean = false;
+    variant: string = 'standard';
+    speed: string = 'classical';
+    perf: string = 'classical';
+    createdAt: number = Date.now();
+    lastMoveAt: number = Date.now();
+    status: string = 'created';
     players: {
       white: {
         user: {
           name: string;
-          title?: string; // Optional since not all users have a title
+          title?: string;
           patron?: boolean;
           id: string;
         };
@@ -37,20 +36,58 @@ export interface Game {
         rating: number;
         ratingDiff: number;
       };
+    } = {
+      white: { user: { name: '', id: '', title: undefined, patron: undefined }, rating: 1200, ratingDiff: 0 },
+      black: { user: { name: '', id: '' }, rating: 1200, ratingDiff: 0 }
     };
     opening?: {
       eco: string;
       name: string;
       ply: number;
-    };
-    moves: string;
+    } = { eco: '', name: '', ply: 0 };
+    moves: string = '';
     clock?: {
       initial: number;
       increment: number;
       totalTime: number;
-    };
-  }
-
+    } = { initial: 0, increment: 0, totalTime: 0 };
+  
+    constructor(init?: Partial<Game>) {
+      if (init) {
+          Object.assign(this, init);
+      }
+    }
+    generatePgn(): string {
+        const tags = [
+            `[Event "${this.variant}"]`,
+            `[Site "https://lichess.org/${this.id}"]`,
+            `[Date "${new Date(this.createdAt).toISOString().split('T')[0]}"]`,
+            `[White "${this.players.white.user.name}"]`,
+            `[Black "${this.players.black.user.name}"]`,
+            `[Result "${this.resultToPgn()}"]`, // Ensure this method is called here
+        ];
+    
+        // Conditionally add ECO and Opening tags if the information is available
+        if (this.opening?.eco && this.opening?.name) {
+            tags.push(`[ECO "${this.opening.eco}"]`);
+            tags.push(`[Opening "${this.opening.name}"]`);
+        }
+    
+        const pgn = `${tags.join('\n')}\n\n${this.moves} ${this.resultToPgn()}`;
+        return pgn;
+    }
+    
+    // Helper method to convert game status to PGN result format
+    private resultToPgn(): string {
+        switch (this.status) {
+            case 'win': return '1-0';
+            case 'loss': return '0-1';
+            case 'draw': return '1/2-1/2';
+            default: return '*';
+        }
+    }
+}
+  
   export interface StudyChapter {
     event: string;
     site: string;
