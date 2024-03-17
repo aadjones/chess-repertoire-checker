@@ -10,24 +10,46 @@ interface Player {
 }
 
 interface Game {
-  id: string;
-  createdAt: number;
-  lastMoveAt: number;
-  speed: string;
-  perf: string;
-  rated: boolean;
-  variant: string;
-  status: string;
-  players: {
-    white: Player;
-    black: Player;
-  };
-  moves?: string; // Assuming you might want the move list
-  opening?: {
-    name: string; // Based on your interest in including opening names
-  };
-  // Add other fields based on the query parameters you use
-}
+    id: string;
+    rated: boolean;
+    variant: string;
+    speed: string;
+    perf: string;
+    createdAt: number;
+    lastMoveAt: number;
+    status: string;
+    players: {
+      white: {
+        user: {
+          name: string;
+          title?: string; // Optional since not all users have a title
+          patron?: boolean;
+          id: string;
+        };
+        rating: number;
+        ratingDiff: number;
+      };
+      black: {
+        user: {
+          name: string;
+          id: string;
+        };
+        rating: number;
+        ratingDiff: number;
+      };
+    };
+    opening?: {
+      eco: string;
+      name: string;
+      ply: number;
+    };
+    moves: string;
+    clock?: {
+      initial: number;
+      increment: number;
+      totalTime: number;
+    };
+  }
 
 /**
  * Fetches the recent games of a specified Lichess user.
@@ -48,4 +70,17 @@ export const fetchGames = async (username: string, max: number = 10): Promise<Ga
         throw error;
     }
 };
+
+/**
+ * Extracts the study ID from a given Lichess study URL.
+ * 
+ * @param studyUrl - The URL of the Lichess study from which to extract the study ID.
+ * @returns The extracted study ID as a string if the URL is valid and contains an ID; otherwise, undefined.
+ */
+export function extractStudyId(studyUrl: string): string | undefined {
+  const match = studyUrl.match(/lichess\.org\/study\/([a-zA-Z0-9]{8})/);
+  return match ? match[1] : undefined;
+}
+
+
 

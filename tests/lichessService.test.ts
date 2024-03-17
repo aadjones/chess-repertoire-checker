@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchGames } from '../src/lichessService';
+import { fetchGames, extractStudyId } from '../src/lichessService';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -18,5 +18,20 @@ describe('fetchGames', () => {
     expect(games.length).toBeGreaterThan(0);
     expect(games[0].id).toBe('q7ZvsdUF');
     // Add more assertions here to verify the structure of the returned data
+  });
+});
+
+describe('extractStudyId', () => {
+  it('should extract the study ID from a valid Lichess study URL', () => {
+    const validUrl = 'https://lichess.org/study/14RZiFdX';
+    const expectedId = '14RZiFdX';
+    const studyId = extractStudyId(validUrl);
+    expect(studyId).toEqual(expectedId);
+  });
+
+  it('should return undefined for an invalid Lichess study URL', () => {
+    const invalidUrl = 'https://lichess.org/other/abcdefgh';
+    const studyId = extractStudyId(invalidUrl);
+    expect(studyId).toBeUndefined();
   });
 });
