@@ -1,5 +1,6 @@
-import axios from "axios";
-// import { Study } from './models'
+import { Study, StudyChapter } from './models'
+import { fetchPgnData } from "./pgnService";
+
 /**
  * Extracts the study ID from a given Lichess study URL.
  * 
@@ -11,28 +12,36 @@ export function extractStudyId(studyUrl: string): string | undefined {
     return match ? match[1] : undefined;
   }
   
-/**
- * Fetches full pgn data from a given Lichess study ID.
- * 
- * @param studyID - The ID of the Lichess study (not the URL!)
- * @returns A promise that resolves with a string of raw pgn data for the entire study
- * @throws {Error} Throws an error if the request to the Lichess API fails.
- */
-export async function fetchPgnData(studyId: string): Promise<string | null> {
-    try {
-        const response = await axios.get(`https://lichess.org/study/${studyId}.pgn`, {
-            params: {
-                clocks: true,
-                comments: true,
-                variations: true,
-                source: true,
-                orientation: true,
-            },
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Failed to fetch PGN data:", error);
-        return null;
-    }
-  }
+//   function parsePgnDataToStudy(pgnData: string, studyId: string): Study {
+//     // Placeholder for parsing logic. This will depend on your specific needs and the structure of Study
+//     const chapters = []; // Implement parsing logic to fill out chapters based on PGN data
+  
+//     return {
+//       id: studyId,
+//       chapters: chapters,
+//     };
+//   }
+
+//   export async function fetchStudy(studyUrl: string): Promise<Study | null> {
+//     const studyId = extractStudyId(studyUrl);
+//     if (!studyId) {
+//       console.error("Invalid study URL");
+//       return null;
+//     }
+  
+//     try {
+//       const pgnData = await fetchPgnData(studyId);
+//       if (pgnData === null) {
+//         console.error("Failed to fetch PGN data");
+//         return null;
+//       }
+  
+//       // Now that we have the PGN data, parse it into a structured Study object
+//       const study: Study = parsePgnDataToStudy(pgnData, studyId);
+//       return study;
+//     } catch (error) {
+//       console.error("Failed to process study from Lichess:", error);
+//       return null;
+//     }
+//   }
   
