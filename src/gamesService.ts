@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Game } from './models'
+import { Chess } from 'chess.js'
 
 /**
  * Fetches the recent games of a specified Lichess user.
