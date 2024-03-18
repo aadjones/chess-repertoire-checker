@@ -1,4 +1,5 @@
 import axios from "axios"
+import { Game } from './models'
 
 /**
  * Fetches full pgn data from a given Lichess study ID.
@@ -24,3 +25,29 @@ export async function fetchPgnData(studyId: string): Promise<string | null> {
         return null;
     }
   }
+
+/**
+ * Splits a pgn string containing multiple games into a list of individual games
+ * 
+ * @param pgnData - The pgn string of multiple games, separated by 3 new lines
+ * @returns A list of pgn strings, one string per individual game
+ */
+export function splitPgnDataIntoGames(pgnData: string): string[] {
+    // Implementation depends on how the PGN data separates games.
+    // This could be as simple as splitting by blank lines, but might need more sophisticated parsing.
+    return pgnData.split('\n\n\n').filter(pgn => pgn.trim() !== '');
+}
+
+/**
+ * Splits a pgn string containing multiple games into a list of individual games
+ * 
+ * @param pgnData - The pgn string of multiple games, separated by 3 new lines
+ * @returns A list of pgn strings, one string per individual game
+ */
+function parsePgnToGame(pgn: string): Game {
+    // Parse PGN to a Game object.
+    // You might adapt your Game class to load from PGN, use a library like chess.js, or implement custom parsing.
+    const game = new Game(); // Placeholder for actual parsing logic
+    // game.loadFromPgn(pgn); // Example method call if your Game class supports loading from PGN
+    return game;
+}

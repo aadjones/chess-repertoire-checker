@@ -1,3 +1,4 @@
+import { Chess } from 'chess.js'
 
 export interface Player {
   user: {
@@ -51,6 +52,7 @@ export class Game {
       increment: number;
       totalTime: number;
     } = { initial: 0, increment: 0, totalTime: 0 };
+    private _chessInstance?: Chess;
   
     constructor(init?: Partial<Game>) {
       if (init) {
@@ -86,6 +88,16 @@ export class Game {
             default: return '*';
         }
     }
+    // Getter for the chess instance that initializes it from the PGN if it hasn't been already
+    get chessInstance(): Chess {
+        if (!this._chessInstance) {
+            this._chessInstance = new Chess();
+            // Initialize the chess instance with PGN generated from this game
+            const pgn = this.generatePgn();
+            this._chessInstance.loadPgn(pgn);
+        }
+    return this._chessInstance;
+  }
 }
   
   export interface StudyChapter {

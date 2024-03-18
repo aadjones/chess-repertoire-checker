@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchPgnData } from '../src/pgnService'
+import { fetchPgnData, splitPgnDataIntoGames } from '../src/pgnService'
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -35,3 +35,25 @@ describe('fetchPgnData', () => {
       expect(result).toBeNull();
     });
   });
+
+  describe('splitPgnDataIntoGames', () => {
+    it('should correctly split a PGN string containing multiple games into individual games', () => {
+      const multiGamePgn = `[Event "Game 1"]\n[Site "Lichess.org"]\n[Result "1-0"]\n\n1. e4 e5 1-0\n\n\n[Event "Game 2"]\n[Site "Lichess.org"]\n[Result "0-1"]\n\n1. d4 d5 0-1\n\n\n[Event "Game 3"]\n[Site "Lichess.org"]\n[Result "1/2-1/2"]\n\n1. c4 c5 1/2-1/2`;
+
+      const expectedGames = [
+        `[Event "Game 1"]\n[Site "Lichess.org"]\n[Result "1-0"]\n\n1. e4 e5 1-0`,
+        `[Event "Game 2"]\n[Site "Lichess.org"]\n[Result "0-1"]\n\n1. d4 d5 0-1`,
+        `[Event "Game 3"]\n[Site "Lichess.org"]\n[Result "1/2-1/2"]\n\n1. c4 c5 1/2-1/2`
+    ];
+    
+      const actualGames = splitPgnDataIntoGames(multiGamePgn);
+  
+      // Assert the number of games split matches expected
+      expect(actualGames.length).toBe(expectedGames.length);
+  
+      // Optionally, iterate over each game to assert content matches
+      actualGames.forEach((game, index) => {
+        expect(game).toBe(expectedGames[index]);
+      });
+    });
+});
