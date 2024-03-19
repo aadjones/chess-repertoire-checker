@@ -115,6 +115,10 @@ export class Game {
     }
     return this._chessInstance;
   }
+  // New setter for chessInstance
+  set chessInstance(value: Chess) {
+    this._chessInstance = value;
+  }
   loadFromPgn(pgn: string): Game {
     const chess = new Chess();
 

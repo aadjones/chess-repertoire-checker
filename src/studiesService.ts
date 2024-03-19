@@ -31,21 +31,21 @@ export function extractStudyId(studyUrl: string): string | undefined {
 export async function fetchStudyGames(studyUrl: string): Promise<Game[]> {
   const studyId = extractStudyId(studyUrl);
   if (!studyId) {
-      console.error("Invalid study URL");
-      return [];
+    console.error("Invalid study URL");
+    return [];
   }
 
   try {
-      const pgnData = await fetchPgnData(studyId);
-      if (!pgnData) {
-          throw new Error("Failed to fetch PGN data for the study.");
-      }
+    const pgnData = await fetchPgnData(studyId);
+    if (!pgnData) {
+      throw new Error("Failed to fetch PGN data for the study.");
+    }
 
-      const chapterPgns = splitPgnDataIntoGames(pgnData);
-      const games = chapterPgns.map(pgn => new Game().loadFromPgn(pgn)); // Assuming Game class has a method to load from PGN
-      return games;
+    const chapterPgns = splitPgnDataIntoGames(pgnData);
+    const games = chapterPgns.map((pgn) => new Game().loadFromPgn(pgn)); // Assuming Game class has a method to load from PGN
+    return games;
   } catch (error) {
-      console.error("Error fetching or processing the study:", error);
-      return [];
+    console.error("Error fetching or processing the study:", error);
+    return [];
   }
 }

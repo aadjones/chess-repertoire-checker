@@ -1,5 +1,23 @@
 import axios from "axios";
+import { Chess } from "chess.js";
+import fs from "fs";
 import { Game } from "./models";
+
+/**
+ * Reads a PGN file from the specified file path and initializes a Chess instance with its content.
+ *
+ * @param filePath - The path to the PGN file.
+ * @returns A Chess instance initialized with the game data from the PGN file. If the PGN data is invalid
+ *          or the file cannot be read, the function will throw an error.
+ * @throws {Error} If the file at the specified path cannot be read or if the PGN data is invalid and cannot
+ *                 be loaded into the Chess instance.
+ */
+export function loadGameFromPgn(filePath: string): Chess {
+  const pgnContent = fs.readFileSync(filePath, { encoding: "utf-8" });
+  const chess = new Chess();
+  chess.loadPgn(pgnContent);
+  return chess;
+}
 
 /**
  * Fetches full pgn data from a given Lichess study ID.
