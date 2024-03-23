@@ -5,14 +5,15 @@ const app = express();
 const PORT = 3000;
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
 // Define a route for the root URL path
 app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to the Chess Repertoire Checker!");
+  // Send the HTML file to the client
+  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
 // Add other routes here

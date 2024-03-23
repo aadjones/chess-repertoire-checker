@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="chessboard-1.0.0.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Repertoire Checker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard-1.0.0.min.css" />
+    <link rel="stylesheet" href="styles.css"> <!-- Ensure you add your custom styles here -->
 </head>
 <body>
+    <h1>Chess Repertoire Checker</h1>
+    <form id="repertoireForm">
+        <div>
+            <label for="lichessUsername">Lichess Username:</label>
+            <input type="text" id="lichessUsername" name="lichessUsername" required>
+        </div>
+        <div>
+            <label for="lichessStudyUrl">Lichess Study URL:</label>
+            <input type="url" id="lichessStudyUrl" name="lichessStudyUrl" required>
+        </div>
+        <button type="submit">Analyze Repertoire</button>
+    </form>
+
+    <!-- Placeholder for displaying the analysis result or deviation point -->
+    <div id="analysisResult"></div>
+
+    <!-- Chessboard -->
     <div id="myBoard" style="width: 400px"></div>
-    <script src="chess.js"></script>
-    <script src="chessboard-1.0.0.min.js"></script>
+
+    <!-- Your scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <script src="app.js"></script> <!-- JavaScript to handle the form and possibly chessboard interactions -->
 </body>
 </html>
