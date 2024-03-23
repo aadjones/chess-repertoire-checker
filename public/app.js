@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Set default values
+    document.getElementById('lichessUsername').value = 'Jrjrjr4'; 
+    document.getElementById('lichessStudyUrl').value = 'https://lichess.org/study/bve0Qw48'; 
+
     const form = document.getElementById('repertoireForm');
 
     form.addEventListener('submit', (event) => {

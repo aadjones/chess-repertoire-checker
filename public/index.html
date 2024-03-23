@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess Repertoire Checker</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard-1.0.0.min.css" />
+    <link rel="stylesheet" href="chessboard-1.0.0.min.css" />
     <link rel="stylesheet" href="styles.css"> <!-- Ensure you add your custom styles here -->
+    <!-- Favicon for traditional desktop browsers -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
 </head>
 <body>
     <h1>Chess Repertoire Checker</h1>
@@ -28,8 +30,8 @@
     <div id="myBoard" style="width: 400px"></div>
 
     <!-- Your scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <script type="module" src="chess.js"></script>
+    <script src="chessboard-1.0.0.min.js"></script>
     <script src="app.js"></script> <!-- JavaScript to handle the form and possibly chessboard interactions -->
 </body>
 </html>
